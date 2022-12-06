@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Housing Price System</title>
+<link href="/static/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="/static/dashboard.css" rel="stylesheet">
+  </head>
+  <body>
+    
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <div class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6">Love DSCI-551</div>
+  <form action="/display" class="form-control form-control-dark w-100 rounded-0 border-0" method="post">
+  <input type="text" placeholder="Min-Price" name="MiP">
+  <input type="text" placeholder="Max-Price" name="MaP">
+  <input type="text" placeholder="Search_crime_by_keyword" name="Bath">
+   <input type="text" placeholder="Search_restaurant_by_keyword" name="Bed">
+    <button class="px-3">Search</button>
+  </form>
+    <div class="navbar-nav">
+    <div class="nav-item text-nowrap">
+      <a class="nav-link px-3" href="/">Sign out</a>
+    </div>
+  </div>
+</header>
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3 sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/display">
+              <span data-feather="home" class="align-text-bottom"></span>
+              Display Data
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/manage">
+              <span data-feather="file" class="align-text-bottom"></span>
+              Manage Your Data
+            </a>
+          </li>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/analysis">
+              <span data-feather="layers" class="align-text-bottom"></span>
+              Show Analysis
+            </a>
+          </li>
+        </ul>
+        </ul>
+      </div>
+    </nav>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.11&sensor=false" type="text/javascript"></script>
+        <script type="text/javascript">
+        // check DOM Ready
+        $(document).ready(function() {
+            // execute
+            (function() {
+                // map options
+                var options = {
+                    zoom: 5,
+                    center: new google.maps.LatLng(39.909736, -98.522109), // centered US
+                    mapTypeId: google.maps.MapTypeId.TERRAIN,
+                    mapTypeControl: false
+                };
+
+                // init map
+                var map = new google.maps.Map(document.getElementById('map_canvas'), options);
+		{%for house in house_list%}
+                    var marker = new google.maps.Marker({
+			    position: new google.maps.LatLng({{house.latitude}}, {{house.longitude}}),
+                        map: map,
+			    title : '{{house.address}}'
+		    });
+
+                    // process multiple info windows
+                    (function(marker) {
+                        // add click event
+                        google.maps.event.addListener(marker, 'click', function() {
+                            infowindow = new google.maps.InfoWindow({
+				    content: '{{house.mostRecentPriceAmount}}'
+                            });
+                            infowindow.open(map, marker);
+                        });
+                    })(marker);
+		    {%endfor%}
+		   
+	{%for row in crime%}
+                    var marker = new google.maps.Marker({
+			    position: new google.maps.LatLng({{row.LAT}}, {{row.LON}}),
+                        map: map,	    
+			    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+			    title : '{{row.date}}'
+			    
+		    });
+
+                    // process multiple info windows
+                    (function(marker) {
+                        // add click event
+                        google.maps.event.addListener(marker, 'click', function() {
+                            infowindow = new google.maps.InfoWindow({
+				    content: '{{row.desc}}'
+                            });
+                            infowindow.open(map, marker);
+                        });
+                    })(marker);
+		    {%endfor%}
+		{%for row in restaurant%}
+                    var marker = new google.maps.Marker({
+			    position: new google.maps.LatLng({{row.latitude}}, {{row.longitude}}),
+                        map: map,	    
+			    icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+			    title : '{{row.facility_name}}'
+			    
+		    });
+
+                    // process multiple info windows
+                    (function(marker) {
+                        // add click event
+                        google.maps.event.addListener(marker, 'click', function() {
+                            infowindow = new google.maps.InfoWindow({
+				    content: '{{row.score}}'
+                            });
+                            infowindow.open(map, marker);
+                        });
+                    })(marker);
+		    {%endfor%}
+	   
+            })();
+        });
+        </script>
+        <div id="map_canvas" style="width:1500px; height:600px;"></div>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th scope="col">address</th>
+              <th scope="col">city</th>
+              <th scope="col">floorSize</th>
+              <th scope="col">Price(Most Recent)</th>
+              <th scope="col">url</th>
+	      <th scope="col">yearBuilt</th>
+	      <th scope="col">Floor</th>
+	      <th scope="col">numberofBedroom</th>
+	      <th scope="col">numberofbathroom</th>
+	      <th scope="col">propertyType</th>
+            </tr>
+          </thead>
+          <tbody>
+	    {%for house in house_list%}
+	    <tr>
+	      <td>{{house.address}}</td>
+	      <td>{{house.city}}</td>
+	      <td>{{house.floorSizeValue}}</td>
+	      <td>{{house.mostRecentPriceAmount}}</td>
+	      <td><a href = '{{house.mostRecentPriceSourceURL}}' target='_blank'>{{house.mostRecentPriceSourceURL}}</a></td>
+              <td>{{house.yearBuilt}}</td>
+	      <td>{{house.numFloor}}</td>
+	      <td>{{house.numBedroom}}</td>
+ 	      <td>{{house.numBathroom}}</td>
+	      <td>{{house.propertyType}}</td>
+           </tr>
+	    {%endfor%}
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+  </body>
+</html>

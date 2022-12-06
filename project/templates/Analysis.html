@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Housing Price System</title>
+<link href="/static/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="/static/dashboard.css" rel="stylesheet">
+  </head>
+  <body>
+    
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <div class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6">Love DSCI-551</div>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="navbar-nav">
+    <div class="nav-item text-nowrap">
+      <a class="nav-link px-3" href="/">Sign out</a>
+    </div>
+  </div>
+</header>
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3 sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link " href="/display">
+              <span data-feather="home" class="align-text-bottom"></span>
+              Display Data
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/manage">
+              <span data-feather="file" class="align-text-bottom"></span>
+              Manage Your Data
+            </a>
+          </li>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/analysis">
+              <span data-feather="layers" class="align-text-bottom"></span>
+              Show Analysis
+            </a>
+          </li>
+        </ul>
+        </ul>
+      </div>
+    </nav>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+   <div class="card shadow-sm">
+	  <img class="bd-placeholder-img card-img-top" width="100%" height="400px" src='/static/4.jpg'/>
+            <div class="card-body">
+              <p class="card-text">it shows that those houses with prices below 1 million dollars are located in the areas with high number of crime cases.</p >
+              <div class="d-flex justify-content-between align-items-center">
+        
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+   <div class="card shadow-sm">
+	  <img class="bd-placeholder-img card-img-top" width="100%" height="400px" src='/static/5.jpg'/>
+            <div class="card-body">
+              <p class="card-text">From the histogram chart above, it can be concluded that crimes of vehicle related, theft, and assault are the most frequently happened crimes.  </p >
+              <div class="d-flex justify-content-between align-items-center">
+        
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+  <div class="card shadow-sm">
+	  <img class="bd-placeholder-img card-img-top" width="100%" height="400px" src='/static/6.jpg'/>
+            <div class="card-body">
+              <p class="card-text">From the pie chart above, it can be concluded that 86% of the selected restaurants have the rating over 90, which is grade A; 12.8% of the selected restaurants have the rating in range of 80 - 90, which is grade B; only 1.2% of selected restaurants are in grade C, and there is no restaurants have the rating below 70, which is grade D. </p >
+              <div class="d-flex justify-content-between align-items-center">
+        
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+ 
+  <div class="card shadow-sm">
+	  <img class="bd-placeholder-img card-img-top" width="100%" height="400px" src='/static/3.jpg'/>
+            <div class="card-body">
+              <p class="card-text">When the minimum price is set to be $5,000,000, it shows that those houses with prices over 5 million dollars are located in the area that is far from the areas with high number of crime cases.</p >
+              <div class="d-flex justify-content-between align-items-center">
+        
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+    </main>
+  </div>
+</div>
+  </body>
+</html>
